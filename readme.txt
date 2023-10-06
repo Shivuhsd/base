@@ -25,7 +25,7 @@ _________________________________
 This Project Currently Has 9 Routes
 
 where,
-    1.auuth
+    1.api
 1       1.merchant/
 2       2.user/
 3       3.authentication/
@@ -35,6 +35,24 @@ where,
 5       1.""
 6       2.update/<str:pk>/
 7       3.create/
+17      4.addproducts/
+
+    3.home
+8      1.search/
+9      2.products/
+
+    4.Buyer
+10      1.userinfo/<str:pk>/
+11      2.cart/<str:pk>/
+12      3.addcart/<str:pk>/
+13      4.userhistory/<str:pk>/
+14      5.address/<str:pk>/
+
+    5.auuth
+15      1.token/
+16      2.token/refresh/
 ________________________________
 
 7 Total Routes (04-10-2023)
+
+17 Total Routes (05-10-2023)

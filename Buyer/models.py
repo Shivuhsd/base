@@ -19,7 +19,7 @@ class UserExtention(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
-    time_stamp = models.DateTimeField(auto_created=True, blank=False)
+    time_stamp = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return self.user.username + "----" + self.product_id.p_name
@@ -64,6 +64,3 @@ class Wishlist(models.Model):
 
     def __str__(self):
         return self.u_id.username + "-----" + self.p_id.p_name
-
-
-

@@ -5,12 +5,18 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView, UpdateAPIView, ListAPIView
-
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 
 
 # Create your views here.
 
 class MerchantStoreView(ListAPIView):
+
+    permission_classes = [
+        IsAuthenticated
+    ]
+
     queryset = Merchant_Store.objects.all()
     serializer_class = MyMerchart_Store
 
@@ -19,7 +25,12 @@ class MerchantStoreCreateView(CreateAPIView):
     queryset = Merchant_Store.objects.all()
     serializer_class = MyMerchart_Store
 
+
 class MerchantStoreUpdate(UpdateAPIView):
     queryset = Merchant_Store.objects.all()
     serializer_class = MyMerchart_Store
-    #lookup_field = 'pk'
+
+
+class ProductAdd(CreateAPIView):
+    queryset = Products.objects.all()
+    serializer_class = MyProducts
