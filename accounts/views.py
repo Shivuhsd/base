@@ -31,9 +31,8 @@ class LoginView(APIView):
             response.set_cookie(
                 key='refresh_token',
                 value=str(refresh_token),
-                path='/',
                 httponly=True,
-                secure=False,# Use in production with HTTPS
+                secure=True,# Use in production with HTTPS
                 samesite='None'
             )
             return response
