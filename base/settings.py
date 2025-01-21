@@ -32,8 +32,10 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     'base-p5gg.onrender.com',
-    'slipwrite.com'
-    'localhost:5173'
+    'slipwrite.com',
+    'slipwrite.netlify.app',
+    'localhost',
+    '127.0.0.1',
 ]
 
 
@@ -46,13 +48,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',
+ 
     
     'api',
     'accounts',
     'home',
 
     'rest_framework',
+
+    'rest_framework_simplejwt',
 
     'corsheaders',
 ]
@@ -80,18 +84,66 @@ ROOT_URLCONF = 'base.urls'
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
-    os.getenv('CORS_ALLOWED_ORIGIN'), 
+    'http://localhost:5173', 
+    'https://slipwrite.netlify.app',
+    'https://slipwrite.com',
 ]
+
+CORS_EXPOSE_HEADERS = ["Set-Cookie"]
+
+# Cookie settings
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_SECURE = False    # Set to True in production with HTTPS
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+
+# SIMPLE_JWT = {
+#     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Access token expiry
+#     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Refresh token expiry               # Optional: Set to True if using refresh token rotation
+#     'BLACKLIST_AFTER_ROTATION': True,                # Optional: Enable if using token blacklisting
+#     'ALGORITHM': 'HS256',                            # JWT signing algorithm
+#     'SIGNING_KEY': os.getenv('DJANGO_SECRET_KEY'),  
+#     'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',              # Replace with a strong secret key
+#     'AUTH_HEADER_TYPES': ('Bearer',),                # Prefix for the Authorization header
+#     'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+# }
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Access token expiry
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=7),     # Refresh token expiry               # Optional: Set to True if using refresh token rotation
-    'BLACKLIST_AFTER_ROTATION': False,                # Optional: Enable if using token blacklisting
-    'ALGORITHM': 'HS256',                            # JWT signing algorithm
-    'SIGNING_KEY': os.getenv('JWT_SIGNING_KEY'),                # Replace with a strong secret key
-    'AUTH_HEADER_TYPES': ('Bearer',),                # Prefix for the Authorization header
-    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+  'ACCESS_TOKEN_LIFETIME': timedelta(seconds=15),
+  'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
+  'ROTATE_REFRESH_TOKENS': False,
+  'BLACKLIST_AFTER_ROTATION': True,
+  'UPDATE_LAST_LOGIN': False,
+
+  'ALGORITHM': 'HS256',
+  'SIGNING_KEY': SECRET_KEY,
+  'VERIFYING_KEY': None,
+  'AUDIENCE': None,
+  'ISSUER': None,
+
+  'AUTH_HEADER_TYPES': ('Bearer',),
+  'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+  'USER_ID_FIELD': 'id',
+  'USER_ID_CLAIM': 'user_id',
+  'USER_AUTHENTICATION_RULE': 'rest_framework_simplejwt.authentication.default_user_authentication_rule',
+
+  'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+  'TOKEN_TYPE_CLAIM': 'token_type',
+
+  'JTI_CLAIM': 'jti',
+
+  'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+  'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+  'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+
+  # custom
+  'AUTH_COOKIE': 'access_token',  # Cookie name. Enables cookies if value is set.
+  'AUTH_COOKIE_DOMAIN': None,     # A string like "example.com", or None for standard domain cookie.
+  'AUTH_COOKIE_SECURE': False,    # Whether the auth cookies should be secure (https:// only).
+  'AUTH_COOKIE_HTTP_ONLY' : True, # Http only cookie flag.It's not fetch by javascript.
+  'AUTH_COOKIE_PATH': '/',        # The path of the auth cookie.
+  'AUTH_COOKIE_SAMESITE': 'Lax',  # Whether to set the flag restricting cookie leaks on cross-site requests. This can be 'Lax', 'Strict', or None to disable the flag.
 }
 
 
@@ -117,10 +169,17 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
-}
-
+if DEBUG:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+    DATABASES = {
+        'default': {
+            "ENGINE": 'django.db.backends.sqlite3',
+            "NAME": os.path.join(BASE_DIR, 'db.sqlite3')
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -170,5 +229,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
-
-

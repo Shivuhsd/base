@@ -9,6 +9,8 @@ urlpatterns = [
 
     path('user-register/', views.UserRegisterView.as_view(), name='user-register'),
 
+    path('logout/', views.UserLogoutView.as_view(), name='logout'),
+
     # Password reset views
 
     path('reset-password/', views.PasswordResetRequestView.as_view(), name='password_reset_view'),

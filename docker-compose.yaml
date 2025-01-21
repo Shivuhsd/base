@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  web:
+    build: 
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      DEBUG: "True"
+      SECRET_KEY: "j832sf897348cmv847^*(#@&$N@$&($&@#@#M23mx34u829))"
+      
