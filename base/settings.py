@@ -31,13 +31,11 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'base-8quu.onrender.com',
+    'base-p4dy.onrender.com',
     'slipwrite.com',
-    'slipwrite.netlify.app',
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
-    'api.slipwrite.com',
 ]
 
 
