@@ -138,7 +138,7 @@ class PasswordResetRequestView(APIView):
         token = token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
         
-        reset_link = f"https://slipwrite.com/api/accounts/password-reset-confirm/{uid}/{token}/"
+        reset_link = f"https://slipwrite.com/accounts/password-reset-confirm/{uid}/{token}/"
 
         subject = "Password Reset Request"
         body = {'reset_link': reset_link}
