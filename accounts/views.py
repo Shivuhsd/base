@@ -42,6 +42,7 @@ class LoginView(APIView):
                 expires=settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'],
                 httponly=True,
                 secure=True,
+                domain='slipwrite.com',
                 samesite='Lax',
                 path='/'
             )
