@@ -170,6 +170,8 @@ WSGI_APPLICATION = 'base.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+DATABASES = {}
+
 if DEBUG:
     DATABASES = {
         'default': {
@@ -177,9 +179,8 @@ if DEBUG:
             "NAME": os.path.join(BASE_DIR, 'db.sqlite3')
         }
     }
- 
 else:
-       DATABASES = {
+    DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
 
