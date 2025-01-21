@@ -41,8 +41,8 @@ class LoginView(APIView):
                 value=str(refresh_token),
                 expires=settings.SIMPLE_JWT['REFRESH_TOKEN_LIFETIME'],
                 httponly=True,
-                secure=False,
-                samesite='Lax',
+                secure=True,
+                samesite='None',
                 path='/'
             )
             
