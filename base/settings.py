@@ -37,6 +37,7 @@ ALLOWED_HOSTS = [
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
+    'api.slipwrite.com',
 ]
 
 
@@ -88,6 +89,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173', 
     'https://slipwrite.netlify.app',
     'https://slipwrite.com',
+    'https://api.slipwrite.com',
 ]
 
 CORS_EXPOSE_HEADERS = ["Set-Cookie"]
@@ -95,8 +97,8 @@ CORS_EXPOSE_HEADERS = ["Set-Cookie"]
 # Cookie settings
 SESSION_COOKIE_SECURE = True  # Set to True in production with HTTPS
 CSRF_COOKIE_SECURE = True  # Set to True in production with HTTPS
-SESSION_COOKIE_SAMESITE = None
-CSRF_COOKIE_SAMESITE = None
+SESSION_COOKIE_SAMESITE = 'None'
+CSRF_COOKIE_SAMESITE = 'None'
 
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),  # Access token expiry
