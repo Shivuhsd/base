@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'base-p5gg.onrender.com',
+    'base-8quu.onrender.com',
     'slipwrite.com',
     'slipwrite.netlify.app',
     'localhost',
