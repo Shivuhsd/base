@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenRefreshView
 from django.core.exceptions import ValidationError
