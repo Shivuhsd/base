@@ -31,11 +31,12 @@ SECRET_KEY = os.getenv('DJANGO_SECRET_KEY')
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'base-p4dy.onrender.com',
     'slipwrite.com',
     'localhost',
     '127.0.0.1',
     '0.0.0.0',
+    '172.31.14.234',
+    '13.200.229.215',
 ]
 
 
